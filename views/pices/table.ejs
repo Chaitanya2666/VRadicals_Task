@@ -1,0 +1,119 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Book's Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Releasing year</th>
+      <th scope="col">Price</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Actions</th>
+      <!-- New column for actions -->
+    </tr>
+  </thead>
+  <tbody>
+    <% Books.forEach(book => { %>
+    <tr>
+      <td><%= book.bookName %></td>
+      <td><%= book.author %></td>
+      <td><%= book.releasingYear %></td>
+      <td><%= book.price %></td>
+      <td><%= book.rating %></td>
+      <td>
+        <!-- Delete Button Form -->
+        <form
+          method="POST"
+          action="/delete/<%= book.bookName %>?_method=DELETE"
+          style="display: inline;"
+        >
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <!-- Update Button -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#updateModal-<%= book.bookName %>"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+
+    <!-- Update Modal -->
+    <div
+      class="modal fade"
+      id="updateModal-<%= book.bookName %>"
+      tabindex="-1"
+      aria-labelledby="updateModalLabel-<%= book.bookName %>"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel-<%= book.bookName %>">Update Book Details</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/update/<%= book.bookName %>?_method=PUT">
+              <label for="bookName">Book Name</label><br />
+              <input
+                type="text"
+                name="bookName"
+                value="<%= book.bookName %>"
+                readonly
+              /><br /><br />
+
+              <label for="author">Author Name</label><br />
+              <input
+                type="text"
+                name="author"
+                value="<%= book.author %>"
+                placeholder="Enter the author name"
+              /><br /><br />
+
+              <label for="releasingYear">Releasing year</label><br />
+              <input
+                type="text"
+                name="releasingYear"
+                value="<%= book.releasingYear %>"
+                placeholder="Enter the releasing year"
+              /><br /><br />
+
+              <label for="price">Price</label><br />
+              <input
+                type="text"
+                name="price"
+                value="<%= book.price %>"
+                placeholder="Enter the price"
+              /><br /><br />
+
+              <label for="rating">Rating</label><br />
+              <input
+                type="text"
+                name="rating"
+                value="<%= book.rating %>"
+                placeholder="Enter the rating"
+              /><br /><br />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </tbody>
+</table>
