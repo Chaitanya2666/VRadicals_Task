@@ -15,7 +15,7 @@ const AddBook = async (req, res) => {
         .status(400)
         .send({ msg: "Please Choose The Rating Between 1 to 5" });
     }
-    if (book.releasingYear <= 1000 || book.releasingYear >= 9999)
+    if (book.releasingYear <= 1000 || book.releasingYear >= 2024)
       return res.status(400).send({ msg: "Please Enter the Valid Year" });
     const data = await user.create({
       bookName: book.bookName,
