@@ -15,14 +15,10 @@ const AddBook = async (req, res) => {
         .status(400)
         .send({ msg: "Please Choose The Rating Between 1 to 5" });
     }
-<<<<<<< HEAD
-    if (book.releasingYear < 1900 || book.releasingYear > 2024) {
-=======
-    if (book.releasingYear >= 1900 && book.releasingYear <= 2024
-)
->>>>>>> 2543c8f6998d92b8750c65f43cf5cc9791a1e062
-      return res.status(400).send({ msg: "Please Enter the Valid Year" });
+    if (book.releasingYear < 1900 || book.releasingYear > 2023) {
+      return res.status(400).send({ msg: "Please enter a valid year" });
     }
+    
 
     const data = await user.create({
       bookName: book.bookName,
@@ -48,10 +44,10 @@ const updateBook = async (req, res) => {
     const bookName = req.params.bookName;
     const book = req.body;
 
-    if (book.releasingYear < 1900 || book.releasingYear > 2024) {
-      return res.status(400).send({ msg: "Please Enter the Valid Year" });
+    if (book.releasingYear < 1900 || book.releasingYear > 2023) {
+      return res.status(400).send({ msg: "Please enter a valid year" });
     }
-
+    
     const updatedBook = await user.findOneAndUpdate(
       { bookName: bookName },
       { $set: req.body },
