@@ -10,7 +10,7 @@ const {
 
 Router.get("/", getBook);
 Router.post("/add", AddBook);
-Router.put("/update/:bookName", updateBook);
+Router.patch("/update/:bookName", updateBook);
 Router.delete("/delete/:bookName", deleteBook);
 
 module.exports = Router;

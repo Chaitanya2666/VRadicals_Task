@@ -15,8 +15,10 @@ const AddBook = async (req, res) => {
         .status(400)
         .send({ msg: "Please Choose The Rating Between 1 to 5" });
     }
-    if (book.releasingYear <= 1000 || book.releasingYear >= 9999)
+    if (book.releasingYear < 1900 || book.releasingYear > 2024) {
       return res.status(400).send({ msg: "Please Enter the Valid Year" });
+    }
+
     const data = await user.create({
       bookName: book.bookName,
       price: book.price,
@@ -30,14 +32,20 @@ const AddBook = async (req, res) => {
       .send('Successfully submitted! <a href="/">Go back</a>');
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .send({ msg: "Price,Releasing Year,Rating Must Be NUMBER" });
+    return res.status(500).send({
+      msg: "Price,Releasing Year,Rating Must Be NUMBER && Book Name Should be UNIQUE",
+    });
   }
 };
+
 const updateBook = async (req, res) => {
   try {
     const bookName = req.params.bookName;
+    const book = req.body;
+
+    if (book.releasingYear < 1900 || book.releasingYear > 2024) {
+      return res.status(400).send({ msg: "Please Enter the Valid Year" });
+    }
 
     const updatedBook = await user.findOneAndUpdate(
       { bookName: bookName },
@@ -54,7 +62,7 @@ const updateBook = async (req, res) => {
     console.log(error);
     return res
       .status(500)
-      .send({ msg: "Price,Releasing Year,Rating Must Be NUMBER" });
+      .send({ msg: "Price,Releasing Year,Rating Must Be NUMBER && Correct " });
   }
 };
 
