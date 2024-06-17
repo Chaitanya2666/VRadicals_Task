@@ -15,7 +15,12 @@ const AddBook = async (req, res) => {
         .status(400)
         .send({ msg: "Please Choose The Rating Between 1 to 5" });
     }
+<<<<<<< HEAD
     if (book.releasingYear < 1900 || book.releasingYear > 2024) {
+=======
+    if (book.releasingYear >= 1900 && book.releasingYear <= 2024
+)
+>>>>>>> 2543c8f6998d92b8750c65f43cf5cc9791a1e062
       return res.status(400).send({ msg: "Please Enter the Valid Year" });
     }
 
